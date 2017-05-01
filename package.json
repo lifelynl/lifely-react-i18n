@@ -1,6 +1,6 @@
 {
   "name": "lifely-react-i18n",
-  "version": "0.0.1-a",
+  "version": "0.0.2",
   "description": "Lifely implementation of i18n in react projects",
   "main": "lib/index.js",
   "repository": {
@@ -21,8 +21,7 @@
     "lodash.isempty": "^4.4.0",
     "lodash.keysin": "^4.2.0",
     "lodash.mapvalues": "^4.6.0",
-    "lodash.noop": "^3.0.1",
-    "react": "^15.5.4"
+    "lodash.noop": "^3.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
