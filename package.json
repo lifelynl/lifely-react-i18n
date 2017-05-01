@@ -1,13 +1,13 @@
 {
   "name": "lifely-react-i18n",
-  "version": "1.0.0",
+  "version": "0.0.1-a",
   "description": "Lifely implementation of i18n in react projects",
   "main": "lib/index.js",
   "repository": {
     "url": "https://github.com/lifelynl/lifely-react-i18n",
     "type": "git"
   },
-  "author": "Lifely <info@lifely.nl>",
+  "author": "Lifely <account@lifely.nl>",
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf ./lib",
