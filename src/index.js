@@ -42,7 +42,7 @@ class Text extends Component {
     }
 };
 
-export function createTranslateComponent({namespace} = {}) {
+export function createTranslatorComponent({namespace} = {}) {
     return class T extends Component {
         constructor(props) {
             super(props);
@@ -52,25 +52,25 @@ export function createTranslateComponent({namespace} = {}) {
                 subscribe: this,
             });
 
-            this._renderText = this._renderText.bind(this);
+            this._transformText = this._transformText.bind(this);
         }
 
         componentWillUnmount() {
             this.translator.unsubscribe(this);
         }
 
-        _renderText() {
-            const { i18n, options, renderText } = this.props;
+        _transformText() {
+            const { i18n, options, transformText } = this.props;
             const translatedText = this.translator.t(i18n, options);
 
-            if (renderText) return renderText(translatedText);
+            if (transformText) return transformText(translatedText);
             return translatedText;
         }
 
         render() {
             return (
                 <Text textWrapper={i18nTextComponent}>
-                    { this._renderText() }
+                    { this._transformText() }
                 </Text>
             );
         }
@@ -122,9 +122,7 @@ export class Translator {
 };
 
 function i18nextWithMiddleware(useMiddleware = []) {
-    useMiddleware.forEach((middleware) => {
-        i18next.use(middleware);
-    });
+    useMiddleware.forEach((middleware) => i18next.use(middleware));
     return i18next;
 };
 
