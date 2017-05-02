@@ -68,6 +68,16 @@ import { changeLanguage } from 'lifely-react-i18n';
 
 changeLanguage('en');
 ```
+```
+// will use "en-US" if available, else it will default to "en"
+changeLanguage('en-US'); 
+```
+#### getCurrentLanguage
+```
+import { getCurrentLanguage } from 'lifely-react-i18n';
+
+getCurrentLanguage(); => "en"
+```
 #### updateLanguage (Not yet implemented)
 Is supposed to update the associated language file
 ```
@@ -76,21 +86,12 @@ import { updateLanguage } from 'lifely-react-i18n';
 // update coming soon
 updateLanguage('en', {"foo": {"bar": "BYE WORLD"}});
 ```
-```
-// will use "en-US" if available, else it will default to "en"
-changeLanguage('en-US'); 
-```
-
-#### getCurrentLanguage
-```
-import { getCurrentLanguage } from 'lifely-react-i18n';
-
-getCurrentLanguage(); => "en"
-```
 
 #### Translator class
 The translator class provides a translate method (`t`) that renders translated values that are assigned to keys in the provided namespace. You can subscribe your component to the translator that will automatically update the translated text when the current language changes. If you don't want the headache associated with subscribing and unsubscribing you can use the `createTranslatorComponent` method (recommended).
 ```
+import { Translator } from 'lifely-react-i18n';
+
 export default class LoginView extends Component {
     constructor(props) {
         super(props);
