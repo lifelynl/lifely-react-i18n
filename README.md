@@ -9,7 +9,7 @@ Add to your project
 $ yarn add lifely-react-i18n
 ```
 Configuration
-```
+```.js
 import { configure } from 'lifely-react-i18n';
 import en from '~/i18n/en.json';
 import nl from '~/i18n/nl.json';
@@ -35,7 +35,7 @@ configure({
 ```
 
 ### Configure translation example: en.json
-```
+```.json
 {
     "loggedin": {
         "tabs": {
@@ -55,7 +55,7 @@ configure({
 ### Translating
 
 #### translate
-```
+```.js
 import { translate } from 'lifely-react-i18n';
 
 translate('hello.world'); => "Hello World!"
@@ -63,24 +63,24 @@ translate('hello.world'); => "Hello World!"
 
 #### changeLanguage
 Will change the current language and update all translation subscriptions.
-```
+```.js
 import { changeLanguage } from 'lifely-react-i18n';
 
 changeLanguage('en');
 ```
-```
+```.js
 // will use "en-US" if available, else it will default to "en"
 changeLanguage('en-US'); 
 ```
 #### getCurrentLanguage
-```
+```.js
 import { getCurrentLanguage } from 'lifely-react-i18n';
 
 getCurrentLanguage(); => "en"
 ```
 #### updateLanguage (Not yet implemented)
 Is supposed to update the associated language file
-```
+```.js
 import { updateLanguage } from 'lifely-react-i18n';
 // updating a language is a WIP
 // update coming soon
@@ -89,7 +89,7 @@ updateLanguage('en', {"foo": {"bar": "BYE WORLD"}});
 
 #### Translator class
 The translator class provides a translate method (`t`) that renders translated values that are assigned to keys in the provided namespace. You can subscribe your component to the translator that will automatically update the translated text when the current language changes. If you don't want the headache associated with subscribing and unsubscribing you can use the `createTranslatorComponent` method (recommended).
-```
+```.jsx
 import { Translator } from 'lifely-react-i18n';
 
 export default class LoginView extends Component {
@@ -117,25 +117,25 @@ export default class LoginView extends Component {
 
 ##### Translator.subscribe
 you can pass the component instance to the constructor like this
-```
+```.js
 this.translator = new Translator({
     namespace: 'App.LoginView',
     subscribe: this,
 });
 ```
 or you can subscribe at a later time like this
-```
+```.js
 this.translator.subscribe(this);
 ```
 ##### Translator.unsubscribe
 to unsubscribe (like on componentWillunmount) you have to pass the same instance you provided when subscribing
-```
+```.js
 this.translator.unsubscribe(this);
 ```
 
 #### createTranslatorComponent
 `createTranslatorComponent` returns a React component that has a built-in subscription to the current language and namespace. This way you won't have to manage your translation subscriptions yourself.
-```
+```.jsx
 import { createTranslatorComponent } from 'lifely-react-i18n';
 const T = createTranslatorComponent({
     namespace: 'loggedin.tabs.AnnouncementsScene'
@@ -160,20 +160,20 @@ export default class AnnouncementsScene extends Component {
 ```
 ##### T.transformText
 If you would like some more control over the outputted text you can transform the text output with the `transformText` hook.
-```
+```.json
 {
     "foo": {
         "bar": "Hello"
     }
 }
 ```
-```
+```.jsx
 <Wrapper>
     <T i18n={'foo.bar'} transformText={(text) => `${text} World!`} />
 </Wrapper>
 ```
 In the browser will output to:
-```
+```.html
 <div class="wrapper">
     <span>Hello World!</span>
 </div>
