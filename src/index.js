@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import isEmpty from 'lodash.isempty'
-import bindAll from 'lodash.bindall'
-let i18next = undefined;
-let i18nTextComponent = undefined;
+import isEmpty from 'lodash.isempty';
+import bindAll from 'lodash.bindall';
+let _i18next = undefined;
+let _defaultI18nTextComponent = 'span';
 
 // text component
 class Text extends Component {
@@ -24,7 +24,7 @@ class Text extends Component {
     }
 };
 
-export function createTranslatorComponent({namespace} = {}) {
+export function createTranslatorComponent({namespace, component} = {}) {
     return class T extends Component {
         constructor(props) {
             super(props);
@@ -51,7 +51,7 @@ export function createTranslatorComponent({namespace} = {}) {
 
         render() {
             return (
-                <Text textWrapper={i18nTextComponent}>
+                <Text textWrapper={component || _defaultI18nTextComponent}>
                     { this._transformText() }
                 </Text>
             );
@@ -81,7 +81,7 @@ export class Translator {
     subscribe(instance) {
         this._subscriptions.push(instance);
         if (!isEmpty(this._subscriptions)) {
-            i18next.on('languageChanged', this._updateSubscriptions);
+            _i18next.on('languageChanged', this._updateSubscriptions);
         }
     }
 
@@ -90,17 +90,17 @@ export class Translator {
         const index = this._subscriptions.indexOf(instance);
         this._subscriptions.splice(index, 1);
         if (isEmpty(this._subscriptions)) {
-            i18next.off('languageChanged', this._updateSubscriptions);
+            _i18next.off('languageChanged', this._updateSubscriptions);
         }
     }
 
     t(key, ...args) {
-        return i18next.t(`${this._namespace}.${key}`, ...args);
+        return _i18next.t(`${this._namespace}.${key}`, ...args);
     }
 };
 
 // initialize lifely-react-i18n
-export function initialize(i18n, { component = 'span' }) {
-    i18nTextComponent = component;
-    i18next = i18n;
+export function initialize(providedI18nextInstance, { defaultComponent = 'span' } = { defaultComponent: 'span' }) {
+    _defaultI18nTextComponent = defaultComponent;
+    _i18next = providedI18nextInstance;
 };
