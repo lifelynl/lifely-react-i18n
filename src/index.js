@@ -1,26 +1,8 @@
 import React, { Component } from 'react';
-import i18next from 'i18next';
 import isEmpty from 'lodash.isempty'
 import bindAll from 'lodash.bindall'
-import noop from 'lodash.noop'
-import mapValues from 'lodash.mapvalues'
-import keysIn from 'lodash.keysin'
+let i18next = undefined;
 let i18nTextComponent = undefined;
-
-// translate('hello-world') => "Hello world!"
-export function translate(...args) {
-    return i18next.t(...args);
-};
-
-// changeLanguage('en')
-export function changeLanguage(...args) {
-    return i18next.changeLanguage(...args);
-};
-
-// getCurrentLanguage() => "nl"
-export function getCurrentLanguage() {
-    return i18next.language;
-};
 
 // text component
 class Text extends Component {
@@ -77,10 +59,6 @@ export function createTranslatorComponent({namespace} = {}) {
     };
 }
 
-export function updateLanguage(language, translations) {
-    console.log('i18n.updateLanguage needs implementation');
-}
-
 // import { Translator, translate } from '~/services/i18n';
 // const translator = new Translator({ namespace: 'App.Users.Employees.Detail' });
 // const { t } = translator;
@@ -121,37 +99,8 @@ export class Translator {
     }
 };
 
-function i18nextWithMiddleware(useMiddleware = []) {
-    useMiddleware.forEach((middleware) => i18next.use(middleware));
-    return i18next;
-};
-
-// configure lifely-react-i18n
-export function configure({
-    defaultLanguage = 'en',
-    resources: resourcesConf = {},
-    onFinished = noop,
-    use: middleware = [],
-    component,
-}) {
+// initialize lifely-react-i18n
+export function initialize(i18n, { component }) {
     i18nTextComponent = component;
-
-    i18nextWithMiddleware(middleware)
-        .init({
-            // set language to 'nl' by default, this overrides the languagedetector
-            // when we have proper language integration, we should remove this setting
-            lng: defaultLanguage,
-            // resources: {
-            //     en: { translation: {...} },
-            //     nl: { translation: {...} },
-            // },
-            resources: mapValues(resourcesConf, (translation) => ({translation})),
-            // whitelist: ['nl', 'en'],
-            whitelist: keysIn(resourcesConf),
-            nonExplicitWhitelist: true,
-            // this renderd the key if the translation is missing
-            parseMissingKeyHandler: (key) => `${key}`,
-        }, (err, t, ...args) => {
-            onFinished(err, t, ...args);
-        });
-}
+    i18next = i18n;
+};

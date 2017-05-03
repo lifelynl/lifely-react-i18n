@@ -10,81 +10,10 @@ $ yarn add lifely-react-i18n
 ```
 Configuration
 ```.js
-import { configure } from 'lifely-react-i18n';
-import en from '~/i18n/en.json';
-import nl from '~/i18n/nl.json';
+import i18next from 'i18n';
+import { initialize } from 'lifely-react-i18n';
 
-configure({
-    defaultLanguage: 'nl',
-    // the resource key represents the language
-    resources: {
-        nl: nl,
-        en: en,
-    },
-    onFinished: () => console.log('Initialized i18n'),
-    // any text rendering element/component
-    component: 'span',
-    // component: Text, // react-native
-    // component: 'span', // web
-
-    // to use i18next middleware like i18next-browser-languagedetector
-    // pass it to "use"
-    // use: [LanguageDetector],
-    use: [],
-});
-```
-
-### Configure translation example: en.json
-```.json
-{
-    "loggedin": {
-        "tabs": {
-            "AnnouncementsTabScene": {
-                "header": {
-                    "title": "Announcements"
-                },
-                "body": {
-                    "currentUser": "You are loggedin as {{email}}"
-                }
-            }
-        }
-    }
-}
-```
-
-### Translating
-
-#### translate
-```.js
-import { translate } from 'lifely-react-i18n';
-
-translate('hello.world'); => "Hello World!"
-```
-
-#### changeLanguage
-Will change the current language and update all translation subscriptions.
-```.js
-import { changeLanguage } from 'lifely-react-i18n';
-
-changeLanguage('en');
-```
-```.js
-// will use "en-US" if available, else it will default to "en"
-changeLanguage('en-US'); 
-```
-#### getCurrentLanguage
-```.js
-import { getCurrentLanguage } from 'lifely-react-i18n';
-
-getCurrentLanguage(); => "en"
-```
-#### updateLanguage (Not yet implemented)
-Is supposed to update the associated language file
-```.js
-import { updateLanguage } from 'lifely-react-i18n';
-// updating a language is a WIP
-// update coming soon
-updateLanguage('en', {"foo": {"bar": "BYE WORLD"}});
+initialize(i18next, { component: Text });
 ```
 
 #### Translator class
