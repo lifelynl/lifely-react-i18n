@@ -8,13 +8,15 @@ Add to your project
 ```
 $ yarn add lifely-react-i18n
 ```
-Configuration
 ```.js
-import i18next from 'i18n';
+import i18next from 'i18next';
 import { initialize } from 'lifely-react-i18n';
 
-initialize(i18next, { component: Text });
+initialize(i18next, { component: 'span' });
 ```
+
+#### initialize(i18nextInstance, {options})
+To use the translator class you need to initialize it in your project root by providing your i18next instance, you only need to do this once. By default the `createTranslatorComponent` will wrap your text in a 'span', but you can alter this to any text rendering component by changing the `component` option.
 
 #### Translator class
 The translator class provides a translate method (`t`) that renders translated values that are assigned to keys in the provided namespace. You can subscribe your component to the translator that will automatically update the translated text when the current language changes. If you don't want the headache associated with subscribing and unsubscribing you can use the `createTranslatorComponent` method (recommended).

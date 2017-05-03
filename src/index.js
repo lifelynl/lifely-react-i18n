@@ -100,7 +100,7 @@ export class Translator {
 };
 
 // initialize lifely-react-i18n
-export function initialize(i18n, { component }) {
+export function initialize(i18n, { component = 'span' }) {
     i18nTextComponent = component;
     i18next = i18n;
 };
