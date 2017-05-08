@@ -41,18 +41,17 @@ export function createTranslatorComponent({namespace, component} = {}) {
             this.translator.unsubscribe(this);
         }
 
-        _transformText() {
-            const { i18n, options, transformText } = this.props;
+        _transformText(i18n, options, transformText) {
             const translatedText = this.translator.t(i18n, options);
-
             if (transformText) return transformText(translatedText);
             return translatedText;
         }
 
         render() {
+            const { i18n, options, transformText, ...passProps } = this.props;
             return (
-                <Text textWrapper={component || _defaultI18nTextComponent}>
-                    { this._transformText() }
+                <Text textWrapper={component || _defaultI18nTextComponent} {...passProps}>
+                    { this._transformText(i18n, options, transformText) }
                 </Text>
             );
         }
