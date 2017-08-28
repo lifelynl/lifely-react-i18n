@@ -43,7 +43,7 @@ export function createTranslatorComponent({namespace, component} = {}) {
 
         _transformText(i18n, options, transformText) {
             const translatedText = this.translator.t(i18n, options);
-            if (transformText) return transformText(translatedText);
+            if (transformText) return transformText(translatedText, this.translator.t, i18n, options);
             return translatedText;
         }
 
@@ -56,6 +56,10 @@ export function createTranslatorComponent({namespace, component} = {}) {
             );
         }
     };
+}
+
+export function createTranslator({namespace} = {}) {
+    return (key, ...args) => _i18next.t(`${namespace}.${key}`, ...args);
 }
 
 // import { Translator, translate } from '~/services/i18n';

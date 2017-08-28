@@ -1,6 +1,6 @@
 {
   "name": "lifely-react-i18n",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "description": "Lifely implementation of i18n in react projects",
   "main": "lib/index.js",
   "repository": {
